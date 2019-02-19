@@ -1,0 +1,8 @@
+{
+  "Parameters": {
+    "FRESHDESKENDPOINT": "https://fastupdev.freshdesk.com",
+    "FRESHDESKKEY": "rbSzyO6PzmqxST8FjhA",
+    "email": "support@fastupdev.freshdesk.com",
+    "groupid": "43000265039"
+  }
+}
