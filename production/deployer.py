@@ -84,7 +84,7 @@ class CfnDeployer:
         print(s3_client_upload["VersionId"])
         return s3_client_upload["VersionId"]
 
-    def _update_deployment_config(self):
+    def _update_deployment_config(self, bucket, key, id1):
         pass
 
 
