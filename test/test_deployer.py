@@ -1,5 +1,4 @@
 import pytest
-from deployer import CfnDeployer
 from deployer import *
 import getpass
 
