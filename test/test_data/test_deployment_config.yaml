@@ -1,4 +1,5 @@
-DeploymentBucket: codepipeline-us-east-1-552275252698
+ArtifactBucket: codepipeline-us-east-1-552275252698
+ProjectName: AutomaticTriage
 Functions:
   - LogicalResourceName: AutomaticTriageLambdaFunction
     DistRoot: test_data/main/production
