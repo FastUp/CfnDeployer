@@ -2,7 +2,7 @@ import json
 import zipfile
 import os
 import yaml
-from aws_clients import AWSClients
+from .aws_clients import AWSClients
 import hashlib
 from botocore.exceptions import ClientError
 
@@ -11,6 +11,8 @@ class DeploymentConfig:
     def __init__(self, template_config_file, deployment_config_file):
         self.template_config_file = template_config_file
         self.deployment_config_file = deployment_config_file
+        print(template_config_file)
+        print(deployment_config_file)
         with open(template_config_file, "r") as template_config_fp:
             self.template_config = json.load(template_config_fp)
         with open(deployment_config_file, "r") as deployment_config_fp:
@@ -20,9 +22,12 @@ class DeploymentConfig:
 class CfnDeployer:
     aws_clients = None
 
-    def __init__(self, deployment_config: DeploymentConfig):
+    def __init__(self, deployment_config: DeploymentConfig, aws_clients: AWSClients = None):
         self.deployment_config = deployment_config
-        self.aws_clients = AWSClients()
+        if not AWSClients:
+            self.aws_clients = AWSClients()
+        else:
+            self.aws_clients = aws_clients
 
     def package(self):
         for each_function in self.deployment_config.deployment_config["Functions"]:
@@ -99,3 +104,17 @@ class CfnDeployer:
 
 class CmdLineInterface:
     pass
+
+
+def run():
+    import sys
+    template_config_file_path = sys.argv[1]
+    deployment_config_file_path = sys.argv[2]
+    if len(sys.argv) > 4:
+        credential_profile_name = sys.argv[3]
+        credential_region_name = sys.argv[4]
+        aws_clients = AWSClients(credential_profile_name, credential_region_name)
+    else:
+        aws_clients = AWSClients()
+    deployment_config = DeploymentConfig(template_config_file_path, deployment_config_file_path)
+    CfnDeployer(deployment_config, aws_clients).package()
