@@ -3,6 +3,13 @@
     "FRESHDESKENDPOINT": "https://fastupdev.freshdesk.com",
     "FRESHDESKKEY": "rbSzyO6PzmqxST8FjhA",
     "email": "support@fastupdev.freshdesk.com",
-    "groupid": "43000265039"
+    "groupid": "43000265039",
+    "ArtifactBucket": "codepipeline-us-east-1-552275252698",
+    "AutomaticTriageLambdaFunctionS3Key": "lambda_artifacts/AutomaticTriage/AutomaticTriageLambdaFunction.zip",
+    "AutomaticTriageLambdaFunctionS3ObjectVersion": "3tkG8vi7WzguFkQRBp_eIq6vIkkUXHdp",
+    "AutomaticTriageIntegrationLambdaFunctionS3Key": "lambda_artifacts/AutomaticTriage/AutomaticTriageIntegrationLambdaFunction.zip",
+    "AutomaticTriageIntegrationLambdaFunctionS3ObjectVersion": "kT2kkLubsb_Bm96hKRrxKKQreCuCYT6W",
+    "AutomaticTriageTriagerLambdaFunctionS3Key": "lambda_artifacts/AutomaticTriage/AutomaticTriageTriagerLambdaFunction.zip",
+    "AutomaticTriageTriagerLambdaFunctionS3ObjectVersion": "WDytuTkTKMiyw_7Rdvnl9OsdqTiNYoMQ"
   }
 }

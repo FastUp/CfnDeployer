@@ -3,16 +3,13 @@ ProjectName: AutomaticTriage
 Functions:
   - LogicalResourceName: AutomaticTriageLambdaFunction
     DistRoot: test_data/main/production
-    S3BucketParamName: AutomaticTriageLambdaFunctionS3Bucket
     S3KeyParamName: AutomaticTriageLambdaFunctionS3Key
     S3ObjectVersionParamName: AutomaticTriageLambdaFunctionS3ObjectVersion
   - LogicalResourceName: AutomaticTriageIntegrationLambdaFunction
     DistRoot: test_data/integrations
-    S3BucketParamName: AutomaticTriageIntegrationLambdaFunctionS3Bucket
     S3KeyParamName: AutomaticTriageIntegrationLambdaFunctionS3Key
     S3ObjectVersionParamName: AutomaticTriageIntegrationLambdaFunctionS3ObjectVersion
   - LogicalResourceName: AutomaticTriageTriagerLambdaFunction
     DistRoot: test_data/new_prioritized_incident
-    S3BucketParamName: AutomaticTriageTriagerLambdaFunctionS3Bucket
     S3KeyParamName: AutomaticTriageTriagerLambdaFunctionS3Key
     S3ObjectVersionParamName: AutomaticTriageTriagerLambdaFunctionS3ObjectVersion

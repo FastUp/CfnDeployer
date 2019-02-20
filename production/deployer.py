@@ -29,7 +29,7 @@ class CfnDeployer:
             curr_dir = os.path.abspath(os.curdir)
             zip_path = self._zip_it(curr_dir, each_function)
             artifact_bucket, s3_key, s3_version_id = self._check_existing_package(zip_path, each_function)
-            self._update_deployment_config(artifact_bucket, s3_key, s3_version_id)
+            self._update_deployment_config(each_function, artifact_bucket, s3_key, s3_version_id)
 
     def _zip_it(self, curr_dir, each_function):
         dist_root = os.path.abspath(each_function["DistRoot"])
@@ -57,14 +57,20 @@ class CfnDeployer:
                 Bucket=artifact_bucket,
                 Key=zip_s3_key
             )
-            if existing_object["Metadata"]["md5sum"] == new_file_hash:
-                print("ignore new package, use existing version")
+            existing_obj_hash = existing_object["Metadata"]["md5sum"]
+            if existing_obj_hash == new_file_hash:
+                print(
+                    "No change to function " +
+                    each_function["LogicalResourceName"] +
+                    ". Will use existing version " +
+                    existing_obj_hash
+                )
                 version_id = existing_object["VersionId"]
             else:
                 version_id = self._do_upload(s3_client, zip_path, zip_s3_key, new_file_hash)
         except ClientError as ce:
             print(ce)
-            print("assuming that object does not exist.")
+            print("Lambda function package zip does not exist. Will upload for the first time.")
             version_id = self._do_upload(s3_client, zip_path, zip_s3_key, new_file_hash)
         return artifact_bucket, zip_s3_key, version_id
 
@@ -84,8 +90,11 @@ class CfnDeployer:
         print(s3_client_upload["VersionId"])
         return s3_client_upload["VersionId"]
 
-    def _update_deployment_config(self, bucket, key, id1):
-        pass
+    def _update_deployment_config(self, function_config, bucket, key, version_id):
+        self.deployment_config.template_config["Parameters"][function_config["S3KeyParamName"]] = key
+        self.deployment_config.template_config["Parameters"][function_config["S3ObjectVersionParamName"]] = version_id
+        with open(self.deployment_config.template_config_file, "w") as template_config_file:
+            json.dump(self.deployment_config.template_config, template_config_file)
 
 
 class CmdLineInterface:
