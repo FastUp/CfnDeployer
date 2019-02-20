@@ -3,3 +3,6 @@
 .pytest_cache
 *.iml
 *.credentials.yaml
+*.egg-info
+build
+dist
